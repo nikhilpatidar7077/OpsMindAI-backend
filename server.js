@@ -3,10 +3,12 @@ const app = express();
 const PORT = 3200
 const connectDB = require("./config/db")
 const userRouter = require("./routes/user.routes")
+const adminRouter = require("./routes/admin.routes")
 
 connectDB();
 app.use(express.json());
 app.use("/api/user",userRouter)
+app.use("/api/admin",adminRouter)
 
 app.get("/",(req,res)=>{
     res.send("server runs successfully!")

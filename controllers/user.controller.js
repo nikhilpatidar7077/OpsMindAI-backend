@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const userSignup = async (req, res) => {
   try {
-    const { fullname, email, mobile, password } = req.body;
+    const { fullname, email, mobile, password, role} = req.body;
     if (!fullname || !email || !mobile || !password) {
       res.status(400).json({
         message: "All filed required!",
@@ -29,6 +29,7 @@ const userSignup = async (req, res) => {
       email,
       mobile,
       password: hashedPassword,
+      role : role || "user"
     });
     await createUser.save();
     res.status(201).json({
@@ -48,7 +49,7 @@ const userLogin = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) {
       res.status(401).json({
-        message: "Invalid Email",
+        message: "Invalid email",
       });
     }
     const isMatch = await bcrypt.compare(password, user.password);
