@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 require('dotenv').config();
+const cors = require("cors");
 const PORT = process.env.PORT || 3200;
 const connectDB = require("./config/db");
 const userRouter = require("./routes/user.routes");
@@ -16,6 +17,7 @@ const mongoose = require("mongoose");
 
 connectDB();
 
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
