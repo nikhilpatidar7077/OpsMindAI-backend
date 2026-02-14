@@ -2,8 +2,9 @@ const Pdf = require("../models/uploadpdf.model");
 const User = require("../models/user.model")
 
 const getAllUsers = async (req,res) => {
+
   try {
-    const allUsers = await User.find().sort({createdAt:-1});
+    const allUsers = await User.find({role:"user"}).sort({createdAt:-1});
     if(!allUsers || allUsers.length === 0){
       res.status(200).json({
         message:"There is no users data avalaible"
